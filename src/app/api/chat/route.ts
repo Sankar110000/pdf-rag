@@ -5,18 +5,19 @@ import { GoogleGenAI } from "@google/genai";
 
 export async function POST(req: NextRequest) {
   try {
-    const { query, prevMessages }: any = await req.json();
+    const { query, prevMessages }: {query: string, prevMessages: []} = await req.json();
 
     const embedding_model = new GoogleGenerativeAIEmbeddings({
-      model: "text-embedding-004",
+      model: "gemini-embedding-2",
       apiKey: process.env.API_KEY,
     });
 
     const vectorStore = await QdrantVectorStore.fromExistingCollection(
       embedding_model,
       {
-        url: "http://localhost:6333/",
+        url: "https://6a0c8f3e-a357-4cb5-8b2d-4907449fde78.eu-west-1-0.aws.cloud.qdrant.io",
         collectionName: "pdf-rag",
+        apiKey: process.env.QDRANT_KEY
       }
     );
 
@@ -42,7 +43,7 @@ export async function POST(req: NextRequest) {
     const client = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
     const chat = client.chats.create({
-      model: "gemini-2.5-flash",
+      model: "gemini-3.1-flash-lite",
       history: prevMessages.map((ele: {role: String, message: String}) => {
         return {role: ele.role, parts: [{text: ele.message}]}
       }),

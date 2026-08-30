@@ -1,7 +1,7 @@
 import path from "path";
 import { writeFile } from "fs/promises";
 
-export default async function saveFile(file: any) {
+export default async function saveFile(file: File) {
   const buffer = Buffer.from(await file.arrayBuffer());
   const filename = file.name.replaceAll(" ", "_");
   try {
@@ -12,7 +12,7 @@ export default async function saveFile(file: any) {
     console.log("file saved successfully");
     return {filename};
   } catch (error) {
-    console.log("Error occured ", error);
+    console.log("Error while saving the file", error);
     return null;
   }
 }

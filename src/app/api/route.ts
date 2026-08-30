@@ -3,7 +3,7 @@ import saveFile from "@/helper/savefile";
 
 export async function POST(request: Request) {
   try {
-    const file = (await request.formData()).get("pdf");
+    const file: = (await request.formData()).get("pdf") as File | null;
     const filename = await saveFile(file);
     await indexFile(filename?.filename);
     return Response.json({ message: "working" });

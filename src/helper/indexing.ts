@@ -21,10 +21,10 @@ export default async function indexFile(filename: any) {
 
     const embedding_model = new GoogleGenerativeAIEmbeddings({
       apiKey: process.env.API_KEY,
-      model: "text-embedding-004",
+      model: "gemini-embedding-2",
     });
 
-    const client = new QdrantClient({ url: "http://localhost:6333/" });
+    const client = new QdrantClient({ url: "https://6a0c8f3e-a357-4cb5-8b2d-4907449fde78.eu-west-1-0.aws.cloud.qdrant.io", apiKey: process.env.QDRANT_KEY});
     
     await client.deleteCollection("pdf-rag")
     console.log("previous data cleared")
