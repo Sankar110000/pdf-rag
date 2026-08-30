@@ -2,7 +2,7 @@ import indexFile from "@/helper/indexing";
 import saveFile from "@/helper/savefile";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request): Promise<NextResponse | undefined> {
+export async function POST(request: Request): Promise<Response> {
   try {
     const file = (await request.formData()).get("pdf") as File | null;
     if(!file){
@@ -13,5 +13,6 @@ export async function POST(request: Request): Promise<NextResponse | undefined> 
     return NextResponse.json({ message: "working" });
   } catch (error) {
     console.log(error);
+    return NextResponse.json({ message: "Error while uploading the file" });
   }
 }
