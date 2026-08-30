@@ -7,10 +7,10 @@ import { QdrantClient } from "@qdrant/js-client-rest";
 
 import path from "path";
 
-export default async function indexFile(filename: string | undefined) {
+export default async function indexFile(filename: string | undefined): Promise<NextResponse | undefined> {
   try {
 
-    if(!filename) {return Response.json({success: false, message: "Not a valid file"})}
+    if(!filename) {return NextResponse.json({success: false, message: "Not a valid file"})}
 
     const filepath = path.resolve(process.cwd(), "public/assets/", filename);
     const loader = new PDFLoader(filepath);
@@ -38,7 +38,7 @@ export default async function indexFile(filename: string | undefined) {
     });
 
     console.log("indexing done");
-    return { message: "indexing is compelte" };
+    return NextResponse.json({ message: "indexing is compelte" });
   } catch (error) {
     console.log(error);
     NextResponse.json({ message: "Error while indexing the file in the db" });

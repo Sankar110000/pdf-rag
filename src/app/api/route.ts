@@ -2,7 +2,7 @@ import indexFile from "@/helper/indexing";
 import saveFile from "@/helper/savefile";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<NextResponse | undefined> {
   try {
     const file = (await request.formData()).get("pdf") as File | null;
     if(!file){
