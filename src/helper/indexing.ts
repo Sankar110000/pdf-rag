@@ -7,8 +7,11 @@ import { QdrantClient } from "@qdrant/js-client-rest";
 
 import path from "path";
 
-export default async function indexFile(filename: any) {
+export default async function indexFile(filename: string | undefined) {
   try {
+
+    if(!filename) {return Response.json({success: false, message: "Not a valid file"})}
+
     const filepath = path.resolve(process.cwd(), "public/assets/", filename);
     const loader = new PDFLoader(filepath);
     const docs = await loader.load();
