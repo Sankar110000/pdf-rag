@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
     const chat = client.chats.create({
       model: "gemini-3.1-flash-lite",
-      history: prevMessages.map((ele: {role: String, message: String}) => {
+      history: prevMessages.map((ele: {role: string, message: string}) => {
         return {role: ele.role, parts: [{text: ele.message}]}
       }),
       config: {
